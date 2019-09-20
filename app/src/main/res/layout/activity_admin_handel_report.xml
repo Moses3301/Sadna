@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:layout_gravity="right"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="10dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/adminReportItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="right"
+        >
+
+
+        <TextView
+            android:id="@+id/tvServiceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="שם השירות:"
+            android:textStyle="italic|bold"
+            android:textColor="#0182E6"
+            android:textAlignment="center"
+            tools:layout_editor_absoluteX="308dp"
+            tools:layout_editor_absoluteY="97dp1" />
+
+        <TextView
+            android:id="@+id/tvServiceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="230dp"
+            tools:layout_editor_absoluteY="230dp" />
+
+        <TextView
+            android:id="@+id/tvReporterEmailLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="שם המדווח:"
+            android:textStyle="italic|bold"
+            android:textColor="#0182E6"
+            tools:layout_editor_absoluteX="308dp"
+            tools:layout_editor_absoluteY="271dp" />
+
+        <TextView
+            android:id="@+id/tvReporterEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="230dp"
+            tools:layout_editor_absoluteY="268dp" />
+
+        <TextView
+            android:id="@+id/tvPathLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="נתיב:"
+            android:textColor="#0182E6"
+            android:textStyle="italic|bold"
+            tools:layout_editor_absoluteX="308dp"
+            tools:layout_editor_absoluteY="191dp" />
+
+        <TextView
+            android:id="@+id/tvPath"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="230dp"
+            tools:layout_editor_absoluteY="188dp" />
+
+        <TextView
+            android:id="@+id/tvDialPathLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="נתיב חיוג:"
+            android:textStyle="italic|bold"
+            android:textColor="#0182E6"
+            tools:layout_editor_absoluteX="318dp"
+            tools:layout_editor_absoluteY="230dp" />
+
+        <TextView
+            android:id="@+id/tvDialPath"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="230dp"
+            tools:layout_editor_absoluteY="230dp" />
+
+        <TextView
+            android:id="@+id/tvCassificationLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="סיווג הבעיה"
+            android:textStyle="italic|bold"
+            android:textColor="#0182E6"
+            tools:layout_editor_absoluteX="308dp"
+            tools:layout_editor_absoluteY="148dp" />
+
+        <TextView
+            android:id="@+id/tvClassification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="230dp"
+            tools:layout_editor_absoluteY="145dp" />
+
+
+        <TextView
+            android:id="@+id/tvProblemLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="הבעיה:"
+            android:textStyle="italic|bold"
+            android:textColor="#0182E6"
+            tools:layout_editor_absoluteX="308dp"
+            tools:layout_editor_absoluteY="148dp" />
+
+
+        <TextView
+            android:id="@+id/tvProblem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="230dp"
+            tools:layout_editor_absoluteY="145dp" />
+
+        <TextView
+            android:id="@+id/tvStatusLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="סטטוס הבעיה:"
+            android:textStyle="italic|bold"
+            android:textColor="#0182E6"
+            tools:layout_editor_absoluteX="308dp"
+            tools:layout_editor_absoluteY="148dp" />
+
+
+        <Spinner
+            android:id="@+id/sStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="230dp"
+            tools:layout_editor_absoluteY="145dp" />
+
+        <TextView
+            android:id="@+id/tvAdminNotesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="הערות טיפול:"
+            android:textStyle="italic|bold"
+            android:textColor="#0182E6"/>
+
+        <EditText
+            android:id="@+id/etAdminNotes"
+            android:layout_width="380dp"
+            android:layout_height="100dp"
+            android:background="@drawable/edit_txt_border"
+            />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="שמור"
+            android:textStyle="bold"
+            android:background="@drawable/btn_style"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
