@@ -120,13 +120,13 @@ public class UploadMenusToServerActivity extends AppCompatActivity {
         item.setM_name("הוט");
         test.writeNewService(HotFactory(), item);
 */
-        /*//Eged
+        //Eged
         item.setM_genre("תחבורה");
         item.setM_avatar("https://firebasestorage.googleapis.com/v0/b/dialrectly.appspot.com/o/Avatars%2FEged.png?alt=media&token=de75a3fe-2618-415f-a74b-0aa6d3c6352c");
         item.setM_name("אגד");
         test.writeNewService(EgedFactory(), item);
 
-*/
+
         Log.e(TAG, "init() <<");
     }
 

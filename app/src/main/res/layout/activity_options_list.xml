@@ -70,13 +70,14 @@
 
     </LinearLayout>
 
-    <Button
+    <ImageButton
         android:id="@+id/btnAdd"
         android:layout_width="150dp"
         android:visibility="invisible"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/btn_style"
+        android:src="@drawable/ic_add"
+        android:background="@android:color/transparent"
         android:text="הוספה"
         android:textColor="@color/colorWhite" />
 

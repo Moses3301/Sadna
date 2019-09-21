@@ -15,6 +15,15 @@
         android:scrollbars="horizontal"
         android:id="@+id/recyclerCategories"/>
 
+    <ImageView
+        android:id="@+id/btnAddMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_add" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerServices"
@@ -24,5 +33,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:scrollbars="vertical" />
+
+
 
 </LinearLayout>

@@ -33,6 +33,11 @@ public class MenuAdapter extends RecyclerView.Adapter< MenuViewHolder > implemen
 
     private List<ServiceItem> mMenuListFull;
     OnMenuClickListener mOnMenuClickListener;
+    OnMenuLongClickListener mOnMenuLongClickListener;
+
+    public void setOnMenuLongClickListener(OnMenuLongClickListener mOnMenuLongClickListener) {
+        this.mOnMenuLongClickListener = mOnMenuLongClickListener;
+    }
 
     public void setOnMenuClickListener(OnMenuClickListener mOnMenuClickListener) {
         this.mOnMenuClickListener = mOnMenuClickListener;
@@ -40,6 +45,10 @@ public class MenuAdapter extends RecyclerView.Adapter< MenuViewHolder > implemen
 
     public interface OnMenuClickListener{
         public void OnMenuClick(ServiceItem iMenu);
+    }
+
+    public interface OnMenuLongClickListener{
+        void OnMenuLongClick(ServiceItem iMenu);
     }
 
     public MenuAdapter(Context iContext, List< ServiceItem > iMenuList) {
@@ -60,13 +69,23 @@ public class MenuAdapter extends RecyclerView.Adapter< MenuViewHolder > implemen
 
     @Override
     public void onBindViewHolder(final MenuViewHolder holder, final int position) {
+        try{
         Picasso.get().load(mMenuList.get(position).getM_avatar()).into(holder.mImage);
+        }catch (Exception e){ }
         holder.mTitle.setText(mMenuList.get(position).getM_name());
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mOnMenuClickListener!= null)
                     mOnMenuClickListener.OnMenuClick(mMenuList.get(position));
+            }
+        });
+        holder.mCardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mOnMenuLongClickListener!=null)
+                    mOnMenuLongClickListener.OnMenuLongClick(mMenuList.get(position));
+                return true;
             }
         });
     }
@@ -111,6 +130,8 @@ public class MenuAdapter extends RecyclerView.Adapter< MenuViewHolder > implemen
             notifyDataSetChanged();
         }
     };
+
+
 }
 
 class MenuViewHolder extends RecyclerView.ViewHolder {

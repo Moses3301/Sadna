@@ -134,6 +134,13 @@ public class LogicSystem {
         Log.e("inRemove",m_selectedOptionsArr.getLast().toString());
 
     }
+
+    public void addNewSubMenu(Option option,Option mainOption)
+    {
+        mainOption.getSubMenu().add(option);
+        editSubMenu(mainOption,mainOption.getName());
+    }
+
     public Option getFirstOption()
     {return m_selectedOptionsArr.getFirst();}
 

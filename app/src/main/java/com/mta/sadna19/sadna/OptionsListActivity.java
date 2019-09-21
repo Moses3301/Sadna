@@ -1,14 +1,8 @@
 package com.mta.sadna19.sadna;
 
-import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,11 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mta.sadna19.sadna.Adapter.OptionAdapter;
@@ -34,7 +25,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class OptionsListActivity extends AppCompatActivity {
 
@@ -53,7 +43,7 @@ public class OptionsListActivity extends AppCompatActivity {
     String LastCallpathName = "";
     String LastCallClickedItem = "";
     User currentUser;
-    Button edit;
+    ImageButton addOptionButton;
     boolean disableBackButton;
     boolean isUserAdmin;
 
@@ -111,7 +101,7 @@ public class OptionsListActivity extends AppCompatActivity {
         m_serviceImage = findViewById(R.id.serviceImage);
         m_menuName.setText(mCurrService.getM_name());
         String url = mCurrService.getM_avatar();
-        Picasso.get().load(url).into(m_serviceImage);
+        try{Picasso.get().load(url).into(m_serviceImage);}catch (Exception e){}
         this.m_OptionAdapter = new OptionAdapter(getApplicationContext(), option);
         m_OptionAdapter.SetmOnLongPressClickedListener(new OptionAdapter.onLongPressClickedListener() {
             @Override
@@ -307,8 +297,8 @@ public class OptionsListActivity extends AppCompatActivity {
 
     private void initBtn()
     {
-        edit = findViewById(R.id.btnAdd);
-        edit.setOnClickListener(new View.OnClickListener() {
+        addOptionButton = findViewById(R.id.btnAdd);
+        addOptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -320,14 +310,13 @@ public class OptionsListActivity extends AppCompatActivity {
 
     private void openAddMenuDialog()
     {
-        addOptionDialog dialog = new addOptionDialog();
-        dialog.SetOnEditOptionListener(new addOptionDialog.OnEditOptionListener() {
+        AddOptionDialog dialog = new AddOptionDialog();
+        dialog.SetOnEditOptionListener(new AddOptionDialog.OnEditOptionListener() {
             @Override
             public void onEditOptionClicked(Option option) {
                 m_logic.addToSubMenu(option);
-                ServiceItem srv = mCurrService;
-                srv.setM_name("tester");
-                mServerHandler.writeNewService(m_logic.getFirstOption(),srv);
+
+                mServerHandler.writeNewService(m_logic.getFirstOption(),mCurrService);
             }
         });
         dialog.show(getSupportFragmentManager(),"");
@@ -335,30 +324,29 @@ public class OptionsListActivity extends AppCompatActivity {
 
     private void openEditMenuDialog(Option i_opt)
     {
-        addOptionDialog dialog = new addOptionDialog();
+        AddOptionDialog dialog = new AddOptionDialog();
         Bundle bundle = new Bundle();
         bundle.putParcelable("option",i_opt);
         dialog.setArguments(bundle);
         final String optionNameBeforeUpdate= i_opt.getName();
-        dialog.SetOnEditOptionListener(new addOptionDialog.OnEditOptionListener() {
+        dialog.SetOnEditOptionListener(new AddOptionDialog.OnEditOptionListener() {
             @Override
             public void onEditOptionClicked(Option option) {
                 m_logic.editSubMenu(option,optionNameBeforeUpdate);
-                ServiceItem srv = mCurrService;
-                srv.setM_name("tester");
-                mServerHandler.writeNewService(m_logic.getFirstOption(),srv);
+
+                mServerHandler.writeNewService(m_logic.getFirstOption(),mCurrService);
             }
         });
         dialog.show(getSupportFragmentManager(),"");
     }
 
+
+
     private void openRemoveMenuDialog(Option i_opt)
     {
 
         m_logic.removeFromSubMenu(i_opt);
-        ServiceItem srv = mCurrService;
-        srv.setM_name("tester");
-        mServerHandler.writeNewService(m_logic.getFirstOption(),srv);
+        mServerHandler.writeNewService(m_logic.getFirstOption(),mCurrService);
 
     }
 
@@ -382,6 +370,13 @@ public class OptionsListActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "הוספת תת תפריט", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                openAddSubMenuDialog(i_op);
+                dialog.dismiss();
+            }
+        });
         alertDialog.show();
         Button btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
         Button btnNegative = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
@@ -399,7 +394,7 @@ public class OptionsListActivity extends AppCompatActivity {
                 if (i_isAdmin)
                 {
                     isUserAdmin = true;
-                    edit.setVisibility(View.VISIBLE);
+                    addOptionButton.setVisibility(View.VISIBLE);
                 }
                 else {
 
@@ -409,5 +404,19 @@ public class OptionsListActivity extends AppCompatActivity {
         });
 
         mServerHandler.IsAdmin(fbUser.getEmail());
+    }
+
+    private void openAddSubMenuDialog(final Option MainOption)
+    {
+        AddOptionDialog dialog = new AddOptionDialog();
+        dialog.SetOnEditOptionListener(new AddOptionDialog.OnEditOptionListener() {
+            @Override
+            public void onEditOptionClicked(Option option) {
+                m_logic.addNewSubMenu(option,MainOption);
+
+                mServerHandler.writeNewService(m_logic.getFirstOption(),mCurrService);
+            }
+        });
+        dialog.show(getSupportFragmentManager(),"");
     }
 }

@@ -122,7 +122,7 @@ public class MenuListActivity extends AppCompatActivity implements NavigationVie
             }
             case R.id.nav_home: {
                 //HomeFrag homeFrag = new HomeFrag();
-                mHomeFrag.initHomeFrag(getApplicationContext(), signedUpUser);
+                mHomeFrag.initHomeFrag(isAdmin, signedUpUser);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mHomeFrag).commit();
                 break;
             }
@@ -346,9 +346,9 @@ public class MenuListActivity extends AppCompatActivity implements NavigationVie
         navigationView.setNavigationItemSelectedListener(this);
 
         if (mSavedInstanceState == null) {
-            HomeFrag homeFrag = new HomeFrag();
-            homeFrag.initHomeFrag(getApplicationContext(), signedUpUser);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFrag).commit();
+
+            mHomeFrag.initHomeFrag(isAdmin, signedUpUser);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mHomeFrag).commit();
         }
 
         navigationView.setCheckedItem(R.id.nav_home);
@@ -374,6 +374,7 @@ public class MenuListActivity extends AppCompatActivity implements NavigationVie
                 {
                     setAdminLayout();
                     isAdmin = true;
+                    mHomeFrag.initHomeFrag(isAdmin, signedUpUser);
                 }
             }
         });

@@ -20,7 +20,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 //Do any action here. Now we are moving to next page
                 Intent mySuperIntent = new Intent(SplashScreenActivity.this, MenuListActivity.class);
                 //Intent mySuperIntent = new Intent(SplashScreenActivity.this, corridorActivity.class);
-                //Intent mySuperIntent = new Intent(SplashScreenActivity.this, MenuListActivity.class);
+                //Intent mySuperIntent = new Intent(SplashScreenActivity.this, UploadMenusToServerActivity.class);
                startActivity(mySuperIntent);
                 /* This 'finish()' is for exiting the app when back button pressed
                  *  from Home page which is ActivityHome

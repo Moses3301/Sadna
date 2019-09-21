@@ -56,7 +56,6 @@ public class OptionAdapter extends BaseAdapter {
             m_name.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    Log.e("Test","Long press");
                     mOnLongPressClickedListener.LongPressClicked(m_Option);
                     return true;
                 }

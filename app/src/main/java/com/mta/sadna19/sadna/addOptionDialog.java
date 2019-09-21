@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class addOptionDialog extends AppCompatDialogFragment {
+public class AddOptionDialog extends AppCompatDialogFragment {
     private FirebaseAuth mAuth;
     private EditText mName, mKeys;
     private EditText mPostKeys,mDataType;
@@ -48,7 +48,7 @@ public class addOptionDialog extends AppCompatDialogFragment {
     {
         mOnEditOptionListener = i_OnEditOptionListener;
     }
-    public addOptionDialog() {
+    public AddOptionDialog() {
     }
 
     @Override

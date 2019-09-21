@@ -621,4 +621,21 @@ public class ServerHandler {
             }
         });
     }
+
+    public void removeMenuFromList(final ServiceItem serviceItem)
+    {
+        DatabaseReference allServicesRef = FirebaseDatabase.getInstance().getReference("Menus");
+        allServicesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.child(serviceItem.getM_name()).getRef().removeValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 }

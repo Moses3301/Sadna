@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ServiceEditingActivity" />
+        <activity android:name=".UploadMenusToServerActivity" />
         <activity android:name=".resetPasswordActivity" />
         <activity android:name=".OptionsListActivity" />
         <activity
