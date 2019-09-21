@@ -114,8 +114,8 @@ public class HomeFrag extends Fragment {
             @Override
             public void OnMenuLongClick(ServiceItem iMenu) {
                 //pop alert dialog
-                openEditRemoveServiceDialog(iMenu);
-                //
+                if (isAdmin)
+                    openEditRemoveServiceDialog(iMenu);
             }
         });
         mRecyclerView.setAdapter(nMenuAdapter);
@@ -272,7 +272,7 @@ public class HomeFrag extends Fragment {
         dialog.SetOnAddServiceListener(new AddServiceDialog.OnAddServiceListener() {
             @Override
             public void onAddServiceClicked(ServiceItem serviceItem) {
-              addNewService(serviceItem);
+                addNewService(serviceItem);
             }
         });
         dialog.show(getActivity().getSupportFragmentManager(), "");
