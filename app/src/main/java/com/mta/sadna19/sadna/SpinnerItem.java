@@ -6,12 +6,9 @@ public class SpinnerItem {
     private int mFlagImage;
 
 
-    public SpinnerItem(String i_categoryName, int i_flagImage){
+    public SpinnerItem(String i_categoryName, int i_flagImage) {
         mCategoryName = i_categoryName;
         mFlagImage = i_flagImage;
     }
-
-    public String getCategoryName(){return mCategoryName;}
-    public int getFlagImage(){return mFlagImage;}
 
 }

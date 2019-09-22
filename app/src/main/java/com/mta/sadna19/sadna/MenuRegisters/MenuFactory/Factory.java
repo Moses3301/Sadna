@@ -1,14 +1,10 @@
 package com.mta.sadna19.sadna.MenuRegisters.MenuFactory;
 
 import android.content.Context;
-import android.graphics.Path;
 import android.util.Log;
 
 import com.mta.sadna19.sadna.MenuRegisters.DataOption;
-import com.mta.sadna19.sadna.MenuRegisters.Menu;
 import com.mta.sadna19.sadna.MenuRegisters.Option;
-import com.mta.sadna19.sadna.R;
-import com.mta.sadna19.sadna.Resources;
 
 public class Factory {
     Context m_context;

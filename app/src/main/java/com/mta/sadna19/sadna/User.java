@@ -20,14 +20,6 @@ public class User implements Parcelable {
         this.m_ID = m_ID;
     }
 
-    public String getM_phone() {
-        return m_phone;
-    }
-
-    public void setM_phone(String m_phone) {
-        this.m_phone = m_phone;
-    }
-
     public String getM_name() {
         return m_name;
     }
@@ -38,10 +30,6 @@ public class User implements Parcelable {
 
     public int getM_points() {
         return m_points;
-    }
-
-    public void setM_points(int m_points) {
-        this.m_points = m_points;
     }
 
     public boolean isM_PrivacyPolicy() {

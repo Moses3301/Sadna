@@ -1,28 +1,19 @@
 package com.mta.sadna19.sadna;
 
 import android.Manifest;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SwitchCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,14 +29,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 import static com.mta.sadna19.sadna.MenuListActivity.PReqCode;
 import static com.mta.sadna19.sadna.MenuListActivity.REQUESTCODE;
@@ -80,7 +67,6 @@ public class ProfileFrag extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragView = inflater.inflate(R.layout.profile_frag, null);
-        //rotateButton = fragView.findViewById(R.id.btnRotate);
         switchButton = fragView.findViewById(R.id.btnSwitchPrivacy);
         name = fragView.findViewById(R.id.frName);
         progressBar = fragView.findViewById(R.id.profileProgressBar);
@@ -97,7 +83,6 @@ public class ProfileFrag extends Fragment {
                 }
             }
         });
-
 
 
         return fragView;
@@ -170,11 +155,7 @@ public class ProfileFrag extends Fragment {
                 serverHandler.removePrivacyListener();
             }
         });
-        //serverHandler.fetchUserPrivacyPolicy();
-
-
     }
-
 
     public ProfileFrag() {
 
@@ -195,8 +176,7 @@ public class ProfileFrag extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (data != null)
-        {
+        if (data != null) {
             pickedImgUri = data.getData();
             Picasso.get().load(pickedImgUri).transform(new CircleTransform()).fit().into(userProfilePic);
         }

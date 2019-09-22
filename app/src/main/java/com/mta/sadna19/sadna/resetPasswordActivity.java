@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,15 +17,16 @@ public class resetPasswordActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private TextView resetPasswordEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
-        resetPasswordEmail =findViewById(R.id.tvEmailToReset);
+        resetPasswordEmail = findViewById(R.id.tvEmailToReset);
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public void onResetPasswordClicked(View v){
+    public void onResetPasswordClicked(View v) {
 
         String email = resetPasswordEmail.getText().toString();
         if (TextUtils.isEmpty(email)) {
@@ -41,7 +41,6 @@ public class resetPasswordActivity extends AppCompatActivity {
                             Intent intent = new Intent(resetPasswordActivity.this, corridorActivity.class);
                             startActivity(intent);
                             finish();
-                        } else {
                         }
                     }
                 });

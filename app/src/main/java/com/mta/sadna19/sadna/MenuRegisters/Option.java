@@ -5,7 +5,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.mta.sadna19.sadna.R;
-import com.mta.sadna19.sadna.Resources;
 
 import java.util.ArrayList;
 import java.util.Collection;

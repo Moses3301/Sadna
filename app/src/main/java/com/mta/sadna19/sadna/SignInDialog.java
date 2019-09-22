@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatDialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +25,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 public class SignInDialog extends AppCompatDialogFragment {
     private Button btnSignInEmailPass;
@@ -34,17 +32,14 @@ public class SignInDialog extends AppCompatDialogFragment {
     private SignInButton mGoogleSignInBtn;
     public static final int RC_GOOGLE_SIGN_IN = 1001;
     private FirebaseAuth mAuth;
-    private FirebaseRemoteConfig mConfig;
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleSignInOptions gso;
     private ServerHandler mServerHandler;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    //private AccessTokenTracker accessTokenTracker;
-    private TextView textView,mEmail,mPass;
+    private TextView textView, mEmail, mPass;
     private FirebaseUser fbUser;
 
-    private String signInMethod = null;
-    public SignInDialog(){
+    public SignInDialog() {
 
     }
 
@@ -54,7 +49,7 @@ public class SignInDialog extends AppCompatDialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.signin_dialog,null);
+        View view = inflater.inflate(R.layout.signin_dialog, null);
         builder.setView(view);
         tvResetPassword = view.findViewById(R.id.tvResetPassword);
         btnSignInEmailPass = view.findViewById(R.id.bSignIn);
@@ -71,9 +66,8 @@ public class SignInDialog extends AppCompatDialogFragment {
             }
         });
 
-        mGoogleSignInBtn = (SignInButton)view.findViewById(R.id.google_sign_in_button);
+        mGoogleSignInBtn = (SignInButton) view.findViewById(R.id.google_sign_in_button);
         googleButtonInit();
-        //initSignInActivity();
         firebaseInit();
         googleSignInInit();
         mEmail = view.findViewById(R.id.tvSigninEmail);
@@ -84,21 +78,11 @@ public class SignInDialog extends AppCompatDialogFragment {
     }
 
 
-    private void googleButtonInit(){
+    private void googleButtonInit() {
         textView = (TextView) mGoogleSignInBtn.getChildAt(0);
         textView.setText(getResources().getString(R.string.googleButtonText));
         textView.setTextSize(20);
-        textView.setPadding(40,0,0,0);
-    }
-
-
-
-    private void initSignInActivity(){
-        //mGoogleSignInBtn = (SignInButton)getView().findViewById(R.id.google_sign_in_button);
-        mAuth = FirebaseAuth.getInstance();
-        //mConfig = FirebaseRemoteConfig.getInstance();
-        mEmail = getView().findViewById(R.id.tvSigninEmail);
-        mPass = getView().findViewById(R.id.tvSigninPassword);
+        textView.setPadding(40, 0, 0, 0);
     }
 
 
@@ -141,15 +125,13 @@ public class SignInDialog extends AppCompatDialogFragment {
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
 
                             //write user
                             fbUser = FirebaseAuth.getInstance().getCurrentUser();
                             registerUser();
                             Intent intent = new Intent(getActivity(), MenuListActivity.class);
                             startActivity(intent);
-                            //finish();
-
                         }
                     }
                 });
@@ -159,7 +141,6 @@ public class SignInDialog extends AppCompatDialogFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
 
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -199,8 +180,7 @@ public class SignInDialog extends AppCompatDialogFragment {
         String email = mEmail.getText().toString();
         String pass = mPass.getText().toString();
 
-        if (email.isEmpty()||pass.isEmpty()){
-            //displayMessage("Please fill in both Email and Password fields");
+        if (email.isEmpty() || pass.isEmpty()) {
             return;
         }
 
@@ -211,11 +191,10 @@ public class SignInDialog extends AppCompatDialogFragment {
 
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Intent intent = new Intent(getActivity(), MenuListActivity.class);
                     startActivity(intent);
-                }
-                else{
+                } else {
                     Toast.makeText(getActivity().getApplicationContext(), "בעיה בהתחברות. אנא בדוק את הפרטים", Toast.LENGTH_SHORT).show();
                 }
 
@@ -223,14 +202,13 @@ public class SignInDialog extends AppCompatDialogFragment {
         });
 
     }
-    public void onForgotPasswordClicked(){
-        Intent intent = new Intent(getActivity(),resetPasswordActivity.class);
+
+    public void onForgotPasswordClicked() {
+        Intent intent = new Intent(getActivity(), resetPasswordActivity.class);
         startActivity(intent);
     }
 
-    private void registerUser()
-
-    {
+    private void registerUser() {
         User newUserToRegister = new User();
         newUserToRegister.setM_email(fbUser.getEmail());
         mServerHandler = new ServerHandler();

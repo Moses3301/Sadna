@@ -3,12 +3,11 @@ package com.mta.sadna19.sadna;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+
 
 import com.mta.sadna19.sadna.MenuRegisters.Option;
 import com.unnamed.b.atv.model.TreeNode;
@@ -38,7 +37,6 @@ public class ServiceEditingActivity extends AppCompatActivity {
         root.addChild(parent);
 
         AndroidTreeView tView = new AndroidTreeView(this, root);
-        //tView.setDefaultViewHolder(MyHolder.class);
         tView.setDefaultContainerStyle(R.style.TreeNodeStyle);
         mContainerView.addView(tView.getView());
     }

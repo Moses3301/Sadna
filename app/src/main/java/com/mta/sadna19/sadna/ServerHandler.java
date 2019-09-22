@@ -1,7 +1,5 @@
 package com.mta.sadna19.sadna;
 
-import android.nfc.Tag;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -12,19 +10,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
 import com.mta.sadna19.sadna.MenuRegisters.DataOption;
 import com.mta.sadna19.sadna.MenuRegisters.Option;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 public class ServerHandler {
-    private DatabaseReference singleMenuRef, allMenuRef;
-    private StorageReference storageRef;
-    private StorageReference imageStorageRef;
     private static final String TAG = "onMenuFetcher";
     private OnServicesFetchedListener mOnServicesFetchedListener;
     private OnOptionFetchedListener mOnOptionFetcherListener;
@@ -41,38 +34,8 @@ public class ServerHandler {
         return mUser;
     }
 
-    public boolean isAdmin;
     private User mUser;
     private FirebaseUser fbUsr;
-
-    public void deleteChild(String path , String end) {
-        final DatabaseReference serviceRef = FirebaseDatabase.getInstance().getReference("Menus/" + path);
-        Log.e(TAG,"onDeleteChild>> " + serviceRef.getKey());
-        final String endPath = end;
-        serviceRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.e(TAG,"onDeleteChild listner >> " + dataSnapshot.getKey());
-                for (DataSnapshot currChild : dataSnapshot.getChildren()) {
-                    Log.e(TAG, "^Ben-currChild >>" + currChild.getKey());
-                    Log.e(TAG, "^Ben-endPath >>" + endPath);
-
-                    Option op = currChild.getValue(Option.class);
-                    Log.e(TAG, "^Ben-op >>" + op);
-                    //if (currChild.child("name").getValue(String.class).contains(endPath))
-                    //{
-                    // serviceRef.setValue(null);
-                    //}
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
 
     interface onAdminsFetchedListener {
         void onAdminsFetched(boolean i_isAdmin);
@@ -101,6 +64,7 @@ public class ServerHandler {
     interface OnUserFetchedByEmailListener {
         public void OnUserFetchedByEmail(User i_user, String i_userUID);
     }
+
     interface OnUserFetchedListener {
         public void OnUserFetch(User i_user);
     }
@@ -173,13 +137,10 @@ public class ServerHandler {
                     case "DataOption": {
 
                         option = snap.getValue(DataOption.class);
-                        Log.e(TAG, "entered to If: Name - " + option.getName() + "Type -" + option.getType() + "dataType: " + ((DataOption) option).getDataType());
-
                         break;
                     }
                     case "Option": {
                         option = snap.getValue(Option.class);
-                        Log.e(TAG, "entered to If: Name - " + option.getName() + "Type -" + option.getType());
                         break;
                     }
 
@@ -190,10 +151,6 @@ public class ServerHandler {
         }
         return i_menuTree;
 
-    }
-
-    private String getMenuRef(String i_MenuName) {
-        return "Menus/" + i_MenuName + "/Menu";
     }
 
     public void writeNewService(Option i_menu, ServiceItem service) {
@@ -268,7 +225,6 @@ public class ServerHandler {
 
                     }
                     categorizedDataMap.get(serviceItem.getM_genre()).add(serviceItem);
-                    //call adapterOfRecyclerView(servicesData);
                 }
                 categorizedDataMap.put("הכל", servicesData);
                 if (mOnServicesFetchedListener != null)
@@ -289,15 +245,11 @@ public class ServerHandler {
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users/" + fbUsr.getUid() + "/UserObject");
         if (user != null)
             userRef.setValue(user);
-        //userRef.child("PrivacyPolicy").setValue("true");
 
 
     }
 
     public void fetchUser(String i_userID) {
-        /*if (IsUserLogedIn()){
-            return;
-        }*/
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(i_userID);
         userRef.child("UserObject").addValueEventListener(new ValueEventListener() {
             @Override
@@ -306,8 +258,6 @@ public class ServerHandler {
 
                 User user = dataSnapshot.getValue(User.class);
                 if (user != null) {
-                    Log.e(TAG, "inUserFetch" + user.toString());
-
                     if (mOnUserFetcherListener != null)
                         mOnUserFetcherListener.OnUserFetch(user);
                 }
@@ -324,10 +274,7 @@ public class ServerHandler {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Boolean res = (Boolean) dataSnapshot.getValue();
-
-                Log.e(TAG, "res " + res);
                 mUser.SetPrivacyPolicy(res);
-
             }
 
             @Override
@@ -374,7 +321,6 @@ public class ServerHandler {
     public void fetchUserLastCall() {
         fbUsr = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users/" + fbUsr.getUid() + "/LastCall");
-        //DatabaseReference userDataRef = userRef.child("lastCallPathName");
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -453,29 +399,6 @@ public class ServerHandler {
         userRef.child("m_PrivacyPolicy").setValue(true);
     }
 
-    public void fetchUserPrivacyPolicy() {
-        fbUsr = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users/" + fbUsr.getUid() + "/UserObject");
-        userRef.child("m_PrivacyPolicy").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String privacyPolicy = dataSnapshot.getValue(String.class);
-
-
-                if (mOnPrivacyPolicyFetchedListener != null) {
-                    if (privacyPolicy != null)
-                        mOnPrivacyPolicyFetchedListener.OnPrivacyPolicyFetched(privacyPolicy.equals("true"));
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
     public void writeAProblem(MenuProblem i_menuProblem, User reporterUser, boolean isAdmin) {
         String uID;
         if (!isAdmin) {
@@ -534,29 +457,6 @@ public class ServerHandler {
         return (FirebaseAuth.getInstance().getCurrentUser() != null);
     }
 
-    /*public void fetchAdmins() {
-        final ArrayList<String> adminsArray = new ArrayList();
-        DatabaseReference admins = FirebaseDatabase.getInstance().getReference("Admins");
-        admins.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snap : dataSnapshot.getChildren()) {
-                    String admin = snap.getValue(String.class);
-                    Log.e(TAG, "admin is : " + admin);
-                    adminsArray.add(admin);
-                }
-                if (mOnAdminsFetchedListener != null)
-                    mOnAdminsFetchedListener.onAdminsFetched(adminsArray);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }*/
-
     public void addPointsToUser(int i_points) {
         fbUsr = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users/" + fbUsr.getUid() + "/UserObject");
@@ -564,27 +464,15 @@ public class ServerHandler {
 
     }
 
-    public void writeAdmin(String i_adminMail) {
-        fbUsr = FirebaseAuth.getInstance().getCurrentUser();
-
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Admins/" + fbUsr.getUid());
-        userRef.setValue(i_adminMail);
-
-    }
-
     public void IsAdmin(final String i_adminUid) {
-
-
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Admins");
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snap: dataSnapshot.getChildren())
-                {
+                for (DataSnapshot snap : dataSnapshot.getChildren()) {
                     String currentAdmin = snap.getValue(String.class);
-                    Log.e(TAG,"admins: "+currentAdmin + "curr "+i_adminUid);
                     if (currentAdmin.equals(i_adminUid))
-                        if (mOnAdminsFetchedListener!=null)
+                        if (mOnAdminsFetchedListener != null)
                             mOnAdminsFetchedListener.onAdminsFetched(true);
                 }
             }
@@ -622,8 +510,7 @@ public class ServerHandler {
         });
     }
 
-    public void removeMenuFromList(final ServiceItem serviceItem)
-    {
+    public void removeMenuFromList(final ServiceItem serviceItem) {
         DatabaseReference allServicesRef = FirebaseDatabase.getInstance().getReference("Menus");
         allServicesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
