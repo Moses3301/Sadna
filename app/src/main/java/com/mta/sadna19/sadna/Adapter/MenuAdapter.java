@@ -22,6 +22,9 @@ import java.util.List;
 public class MenuAdapter extends RecyclerView.Adapter< MenuViewHolder > implements Filterable {
     private Context mContext;
     private List<ServiceItem> mMenuList;
+    private List<ServiceItem> mMenuListFull;
+    OnMenuClickListener mOnMenuClickListener;
+    OnMenuLongClickListener mOnMenuLongClickListener;
 
     public List<ServiceItem> getmMenuListFull() {
         return mMenuListFull;
@@ -30,10 +33,6 @@ public class MenuAdapter extends RecyclerView.Adapter< MenuViewHolder > implemen
     public void setmMenuListFull(List<ServiceItem> mMenuListFull) {
         this.mMenuListFull = mMenuListFull;
     }
-
-    private List<ServiceItem> mMenuListFull;
-    OnMenuClickListener mOnMenuClickListener;
-    OnMenuLongClickListener mOnMenuLongClickListener;
 
     public void setOnMenuLongClickListener(OnMenuLongClickListener mOnMenuLongClickListener) {
         this.mOnMenuLongClickListener = mOnMenuLongClickListener;
@@ -44,7 +43,7 @@ public class MenuAdapter extends RecyclerView.Adapter< MenuViewHolder > implemen
     }
 
     public interface OnMenuClickListener{
-        public void OnMenuClick(ServiceItem iMenu);
+        void OnMenuClick(ServiceItem iMenu);
     }
 
     public interface OnMenuLongClickListener{
@@ -130,8 +129,6 @@ public class MenuAdapter extends RecyclerView.Adapter< MenuViewHolder > implemen
             notifyDataSetChanged();
         }
     };
-
-
 }
 
 class MenuViewHolder extends RecyclerView.ViewHolder {

@@ -7,15 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TabHost;
-import android.widget.Toast;
-
 import com.mta.sadna19.sadna.Adapter.AdminReportReviewsRecyclerAdapter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -40,7 +35,6 @@ public class DoneReviewsFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View fragView = inflater.inflate(R.layout.done_reviews_frag,null);
         intent = new Intent(getActivity(),AdminHandelReport.class);
         mRecyclerView = fragView.findViewById(R.id.recyclerAdminReportReviews);
@@ -50,9 +44,6 @@ public class DoneReviewsFrag extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        //mAllMenusProblems = (ArrayList<MenuProblem>)getArguments().get("data");
-
         serverHandler.SetonProblemsFetchedListener(new ServerHandler.onProblemsFetchedListener() {
             @Override
             public void OnProblemsFetchedListener(HashMap<String, HashMap<String, MenuProblem>> i_Problems) {

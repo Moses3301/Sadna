@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.mta.sadna19.sadna.MenuRegisters.DataOption;
 import com.mta.sadna19.sadna.MenuRegisters.Option;
@@ -42,12 +41,10 @@ public class AddServiceDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.add_service_dialog, null);
         builder.setView(view);
-
 
         mServiceName = view.findViewById(R.id.etServiceName);
         mServiceAvatar = view.findViewById(R.id.etServiceAvatar);
@@ -56,8 +53,6 @@ public class AddServiceDialog extends AppCompatDialogFragment {
         btnAddService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 ServiceItem newService = createService();
                 if (mOnAddServiceListener != null)
                     mOnAddServiceListener.onAddServiceClicked(newService);
@@ -91,8 +86,4 @@ public class AddServiceDialog extends AppCompatDialogFragment {
             serviceItem.setM_avatar("https://firebasestorage.googleapis.com/v0/b/dialrectly.appspot.com/o/Avatars%2F1.jpeg?alt=media&token=6425eabf-5970-4257-9855-e08b8f0f5561");
         return serviceItem;
     }
-
-
-
-
 }

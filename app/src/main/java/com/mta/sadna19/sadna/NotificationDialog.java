@@ -6,9 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.support.v7.widget.SwitchCompat;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
 
 public class NotificationDialog extends AppCompatDialogFragment {
 
@@ -23,7 +20,6 @@ public class NotificationDialog extends AppCompatDialogFragment {
     {
         mOnPrivacyPolicyClicked = onPrivacyPolicyClicked;
     }
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

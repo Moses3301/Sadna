@@ -1,10 +1,7 @@
 package com.mta.sadna19.sadna;
 
 import android.util.Log;
-
-import com.mta.sadna19.sadna.Adapter.OptionAdapter;
 import com.mta.sadna19.sadna.MenuRegisters.Option;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -13,7 +10,6 @@ public class LogicSystem {
     private BackListener m_onBackSelectedListener;
     private SelectedListener m_onOptionSelectedListener;
     private LastOptionListener m_onLastOptionListener;
-
 
     public LogicSystem(Option iOption) {
         addOptionToSelectedOpsArr(iOption);
@@ -143,6 +139,5 @@ public class LogicSystem {
 
     public Option getFirstOption()
     {return m_selectedOptionsArr.getFirst();}
-
 
 }

@@ -4,12 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class DataOption extends Option implements Parcelable {
-    //Type of what the user input like Phone,ID
     private String m_DataType;
 
-    //i_Name - Text with the instruction for the user like "Enter ID here"
-    //i_EndTab - Usually after the user input ID/Phone he need to put #
-    //i_Type - Type of what the user input like Phone,ID
     public DataOption(String i_Name, String i_Type, String i_EndTab) {
         super("1" , i_Name);
         this.m_DataType = i_Type;
@@ -23,7 +19,6 @@ public class DataOption extends Option implements Parcelable {
     }
 
     public String getDataType() {
-
         return m_DataType;
     }
 
@@ -43,7 +38,6 @@ public class DataOption extends Option implements Parcelable {
                 '}';
     }
 
-    //-----------------------------------------------------
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest,flags);
         dest.writeString(m_DataType);

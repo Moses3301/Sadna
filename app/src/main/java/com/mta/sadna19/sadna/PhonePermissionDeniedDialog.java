@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
 
 public class PhonePermissionDeniedDialog extends AppCompatDialogFragment {
-
-
     OnPermissionGrantedAfterAll monPermittionGrantedAfterAll;
+
     public interface OnPermissionGrantedAfterAll {
          void onAskPermitionAgain();
     }
+
     public void SetOnPermittionGrantedAfterAll(OnPermissionGrantedAfterAll i_OnPermissionGrantedAfterAll)
     {
         monPermittionGrantedAfterAll = i_OnPermissionGrantedAfterAll;
@@ -38,7 +38,5 @@ public class PhonePermissionDeniedDialog extends AppCompatDialogFragment {
                 });
         return  builder.create();
     }
-
-
 
 }

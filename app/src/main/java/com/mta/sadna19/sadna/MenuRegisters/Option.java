@@ -1,11 +1,7 @@
 package com.mta.sadna19.sadna.MenuRegisters;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.mta.sadna19.sadna.R;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -16,7 +12,6 @@ public class Option implements Parcelable {
     private String m_Name = null;
     //m_PostKeys - Usually after the user input ID/Phone he need to put #
     private String m_PostKeys = null;
-
 
     //m_SubMenu - next Menu
     private ArrayList<Option> m_SubMenu = new ArrayList<>();

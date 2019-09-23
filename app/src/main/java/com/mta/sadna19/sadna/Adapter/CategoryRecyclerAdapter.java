@@ -38,7 +38,6 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.categories_recyclerview_item,viewGroup,false);
 
-
         return new ViewHolder(view);
     }
 
@@ -62,16 +61,10 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-
-
-
-
         Button catTitle;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             catTitle = itemView.findViewById(R.id.tvCategoryItemTitle);
-            this.catTitle = catTitle;
         }
-
     }
 }

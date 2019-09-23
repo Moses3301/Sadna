@@ -1,31 +1,23 @@
 package com.mta.sadna19.sadna.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.mta.sadna19.sadna.AdminHandelReport;
-import com.mta.sadna19.sadna.AdminReportReviews;
 import com.mta.sadna19.sadna.MenuProblem;
 import com.mta.sadna19.sadna.R;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class AdminReportReviewsRecyclerAdapter extends RecyclerView.Adapter<AdminReportReviewsRecyclerAdapter.ViewHolder> {
 
-    public static final String TAG = "AdminAdapter";
+    public static final String TAG = "?AdminAdapter?";
 
     private ArrayList<MenuProblem> mAllMenuProblems;
 
@@ -44,7 +36,7 @@ public class AdminReportReviewsRecyclerAdapter extends RecyclerView.Adapter<Admi
     }
 
     public interface OnProblemClickListener {
-        public void OnProblemClick(MenuProblem i_MenuProblem);
+         void OnProblemClick(MenuProblem i_MenuProblem);
     }
 
     @NonNull
@@ -110,16 +102,6 @@ public class AdminReportReviewsRecyclerAdapter extends RecyclerView.Adapter<Admi
             adminNotes = itemView.findViewById(R.id.tvAdminNotes);
 
             adminReportItemLayout = itemView.findViewById(R.id.adminReportItem);
-
-            this.serviceName = serviceName;
-            this.problem = problem;
-            this.path = path;
-            this.dialPath = dialPath;
-            this.reporterEmail = reporterEmail;
-            this.adminReportItemLayout = adminReportItemLayout;
-            this.classification = classification;
-            this.status = status;
-            this.adminNotes = adminNotes;
         }
 
     }

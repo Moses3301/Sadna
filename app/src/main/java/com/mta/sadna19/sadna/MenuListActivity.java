@@ -13,28 +13,20 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.mta.sadna19.sadna.Adapter.MenuAdapter;
 import com.squareup.picasso.Picasso;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
-
-import static java.time.OffsetDateTime.now;
 
 public class MenuListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String OPTION_SELECTED = "OPTION_SELECTED";
@@ -54,10 +46,7 @@ public class MenuListActivity extends AppCompatActivity implements NavigationVie
     static int PReqCode = 2;
     static int REQUESTCODE = 1;
     boolean isAdmin= false;
-
     NavigationView navView;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,20 +110,17 @@ public class MenuListActivity extends AppCompatActivity implements NavigationVie
                 break;
             }
             case R.id.nav_home: {
-                //HomeFrag homeFrag = new HomeFrag();
                 mHomeFrag.initHomeFrag(isAdmin, signedUpUser);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mHomeFrag).commit();
                 break;
             }
 
             case R.id.nav_favorites: {
-                //HomeFrag homeFrag = new HomeFrag();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mFavoritesFrag).addToBackStack(null).commit();
                 break;
             }
 
             case R.id.nav_log_in: {
-                //Intent intent = new Intent(MenuListActivity.this, signinActivity.class);
                 Intent intent = new Intent(MenuListActivity.this, corridorActivity.class);
                 startActivity(intent);
                 break;
@@ -146,7 +132,6 @@ public class MenuListActivity extends AppCompatActivity implements NavigationVie
             }
 
             case R.id.nav_admin: {
-                //HomeFrag homeFrag = new HomeFrag();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mAdminsFrag).addToBackStack(null).commit();
                 break;
             }
@@ -202,7 +187,6 @@ public class MenuListActivity extends AppCompatActivity implements NavigationVie
 
     private void signOutClicked() {
         mAuth.signOut();
-        //LoginManager.getInstance().logOut();
         Auth.GoogleSignInApi.signOut(mGoogleApiClient);
 
         startActivity(new Intent(MenuListActivity.this, corridorActivity.class));
@@ -230,15 +214,11 @@ public class MenuListActivity extends AppCompatActivity implements NavigationVie
                 }
             }
 
-            //tvHeaderEmailUser.setText(signedUpUser.getM_email());
             String user_name = signedUpUser.getM_name();
             if (!(user_name == null || user_name.isEmpty()))
                 tvHeaderHelloUser.setText("שלום " + signedUpUser.getM_name());
 
-        } else {
-            //tvHeaderEmailUser.setText("");
         }
-
     }
 
     private void headerMessageByTime()
@@ -265,9 +245,6 @@ public class MenuListActivity extends AppCompatActivity implements NavigationVie
             tvHeaderEmailUser.setText("לילה טוב");
 
         }
-
-
-
 
     }
 
@@ -320,13 +297,9 @@ public class MenuListActivity extends AppCompatActivity implements NavigationVie
             mServerHandler.fetchUser(fbUser.getUid());
         } else {
             //not authenticated user
-
             nav_Menu.findItem(R.id.nav_log_out).setVisible(false);
             nav_Menu.findItem(R.id.nav_favorites).setVisible(false);
             nav_Menu.findItem(R.id.nav_profile).setVisible(false);
-            //nav_Menu.findItem(R.id.nav_admin).setVisible(false);
-
-
         }
         nav_Menu.findItem(R.id.nav_admin).setVisible(false);
 
@@ -340,17 +313,13 @@ public class MenuListActivity extends AppCompatActivity implements NavigationVie
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         if (mSavedInstanceState == null) {
 
             mHomeFrag.initHomeFrag(isAdmin, signedUpUser);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, mHomeFrag).commit();
         }
-
         navigationView.setCheckedItem(R.id.nav_home);
     }
 

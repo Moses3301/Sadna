@@ -10,9 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.mta.sadna19.sadna.Adapter.AdminReportReviewsRecyclerAdapter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,12 +19,9 @@ public class InProgressReviewsFrag extends Fragment {
     RecyclerView mRecyclerView;
     ServerHandler serverHandler;
     Intent intent;
-
     private HashMap<String, MenuProblem> userAndProblem = new HashMap<>();
     private ArrayList<MenuProblem> mAllMenusProblems = new ArrayList<>();
     private ArrayList<MenuProblem> mInProgressMenusProblems = new ArrayList<>();
-
-
 
     public InProgressReviewsFrag() {
         // Required empty public constructor
@@ -50,8 +45,6 @@ public class InProgressReviewsFrag extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        //mAllMenusProblems = (ArrayList<MenuProblem>)getArguments().get("data");
         serverHandler.SetonProblemsFetchedListener(new ServerHandler.onProblemsFetchedListener() {
             @Override
             public void OnProblemsFetchedListener(HashMap<String, HashMap<String, MenuProblem>> i_Problems) {
@@ -126,7 +119,6 @@ public class InProgressReviewsFrag extends Fragment {
                 mInProgressMenusProblems.add(problem);
 
         }
-
     }
 
 }

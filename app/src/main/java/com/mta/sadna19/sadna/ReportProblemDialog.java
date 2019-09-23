@@ -11,13 +11,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.squareup.picasso.Picasso;
 
 public class ReportProblemDialog extends AppCompatDialogFragment {
-
     Button btnOption1, btnOption2, btnOption3, btnReport;
     OnSendReportClicked mOnSendReportClicked;
     TextView tvServiceName, tvLastCallItem, tvFreeText;
@@ -35,11 +33,8 @@ public class ReportProblemDialog extends AppCompatDialogFragment {
         mOnSendReportClicked = iOnSendReportClicked;
     }
 
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.report_layout, null);
@@ -85,7 +80,6 @@ public class ReportProblemDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
-
     private void manageReportOptions() {
         btnOption1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +118,5 @@ public class ReportProblemDialog extends AppCompatDialogFragment {
         menuProblem.setmLastCallDialPath(dialPath);
         menuProblem.setmStatus("ON");
     }
-
 
 }

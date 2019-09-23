@@ -10,16 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class AdminHandelReport extends AppCompatActivity {
-
     private static final String TAG = "onAdminHandelReport";
 
     private MenuProblem mMenuProblem = new MenuProblem();
     private User mCurrentUser = new User();
     private String mUserUID = new String();
-
     private TextView serviceName;
     private TextView problem;
     private TextView path;
@@ -41,11 +38,9 @@ public class AdminHandelReport extends AppCompatActivity {
         setContentView(R.layout.activity_admin_handel_report);
 
         initReport();
-
     }
 
     private void initReport() {
-
         Log.e(TAG, "onInitReport >>");
         mMenuProblem = getIntent().getExtras().getParcelable("Menu_Problem");
         mCurrentUser = getIntent().getExtras().getParcelable("Current_User");
@@ -78,8 +73,6 @@ public class AdminHandelReport extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "הדיווח עודכן ונשמר", Toast.LENGTH_SHORT).show();
-
                 mMenuProblem.setmAdminNotes(adminNotes.getText().toString());
                 mMenuProblem.setmStatus(statusSpinner.getSelectedItem().toString());
                 serverHandler.writeAProblem(mMenuProblem, mCurrentUser, true);

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,37 +13,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.mta.sadna19.sadna.Adapter.MenuAdapter;
 import com.mta.sadna19.sadna.MenuRegisters.Option;
-import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static com.mta.sadna19.sadna.MenuListActivity.PReqCode;
-import static com.mta.sadna19.sadna.MenuListActivity.REQUESTCODE;
 
 public class FavoritesFrag extends Fragment {
     ArrayList<ServiceItem> mFavoritesArray;
@@ -58,10 +35,7 @@ public class FavoritesFrag extends Fragment {
     String LastCall;
     String LastCallDial;
     private static final String OPTION_SELECTED = "OPTION_SELECTED";
-
     private static final int REQUEST_CODE = 1;
-
-
     OnDialLastCallClicked mOnDialLastCallClicked;
 
     public interface OnDialLastCallClicked {
@@ -88,7 +62,6 @@ public class FavoritesFrag extends Fragment {
         mServerHandler = new ServerHandler();
         View fragView = inflater.inflate(R.layout.favorites_frag, null);
         mRecyclerView = fragView.findViewById(R.id.recyclerFavoritesServices);
-        //imgLastCall = fragView.findViewById(R.id.imgLastCall);
         tvLastCall = fragView.findViewById(R.id.tvLastCall);
         tvServiceNameLastCall = fragView.findViewById(R.id.tvServiceNameLastCall);
         imgLastCall = fragView.findViewById(R.id.btnLastCall);
@@ -100,11 +73,9 @@ public class FavoritesFrag extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFavoritesArray = new ArrayList<>();
-
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
         mServerHandler = new ServerHandler();
         mMenuAdapter = new MenuAdapter(mContext, mFavoritesArray);
-
         imgLastCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

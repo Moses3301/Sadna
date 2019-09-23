@@ -26,10 +26,12 @@ public class OptionAdapter extends BaseAdapter {
     public interface onLongPressClickedListener{
         void LongPressClicked(Option i_Opt);
     }
+
     public interface OptionViewHolder{
         public Option getOption();
         public View getView();
     }
+
     class TextOptionViewHolder implements OptionViewHolder{
         View m_View;
         Button m_name;
@@ -72,6 +74,7 @@ public class OptionAdapter extends BaseAdapter {
             return m_OptionViewCreated;
         }
     }
+    
     public class DataOptionViewHolder implements OptionViewHolder{
         View m_View;
         Button m_Submit;
@@ -158,6 +161,7 @@ public class OptionAdapter extends BaseAdapter {
     public interface onOptionSelectedListener {
         void onItemSelected(Option i_op);
     }
+
     public interface OnOptionViewCreatedListener {
         void OnOptionViewCreated(OptionViewHolder iViewHolder);
     }
@@ -165,9 +169,11 @@ public class OptionAdapter extends BaseAdapter {
     public void setOnOptionSelected(onOptionSelectedListener i_onOptionSelectedListener){
         m_optionSelected  = i_onOptionSelectedListener;
     }
+
     public void setOnOptionViewCreatedListener(OnOptionViewCreatedListener i_OnOptionViewCreatedListener){
         m_OptionViewCreated  = i_OnOptionViewCreatedListener;
     }
+
     public void SetmOnLongPressClickedListener(onLongPressClickedListener i_OnLongPressClickedListener){
         mOnLongPressClickedListener  = i_OnLongPressClickedListener;
     }

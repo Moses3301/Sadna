@@ -22,7 +22,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -33,13 +32,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
 import static com.mta.sadna19.sadna.MenuListActivity.PReqCode;
 import static com.mta.sadna19.sadna.MenuListActivity.REQUESTCODE;
 
 public class ProfileFrag extends Fragment {
-
-
     EditText name;
     EditText email;
     Button editBtn;
@@ -62,7 +58,6 @@ public class ProfileFrag extends Fragment {
         mOnProfileImageUpdate = onProfileImageUpdate;
     }
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -84,7 +79,6 @@ public class ProfileFrag extends Fragment {
             }
         });
 
-
         return fragView;
     }
 
@@ -92,11 +86,8 @@ public class ProfileFrag extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         serverHandler = new ServerHandler();
-
         editBtn = view.findViewById(R.id.btnEdit);
         userProfilePic = view.findViewById(R.id.imgProfile);
-
-
         fbUser = FirebaseAuth.getInstance().getCurrentUser();
         if (fbUser.getPhotoUrl() != null) {
             Picasso.get().load(fbUser.getPhotoUrl()).transform(new CircleTransform()).into(userProfilePic);
@@ -111,18 +102,14 @@ public class ProfileFrag extends Fragment {
                 } else {
                     openGallery();
                 }
-
-
             }
         });
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (name.isEnabled()) {
-
                     name.setEnabled(false);
                     editBtn.setText("עריכה");
-
                     user.setM_name(name.getText().toString());
                     serverHandler.writeUser(user);
                 } else {
@@ -130,7 +117,6 @@ public class ProfileFrag extends Fragment {
                     editBtn.setText("סיים עריכה");
 
                 }
-
             }
         });
         name.setEnabled(false);
@@ -183,21 +169,15 @@ public class ProfileFrag extends Fragment {
         if (mOnProfileImageUpdate != null)
             mOnProfileImageUpdate.onProfileImageUpdate(pickedImgUri);
         updateUserInfo();
-
-
     }
 
     private void openGallery() {
-        //TODO: open gallery intent and wait for user to pick an image !
-
         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, REQUESTCODE);
     }
 
     private void checkAndRequestForPermission() {
-
-
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -216,19 +196,14 @@ public class ProfileFrag extends Fragment {
 
 
     private void updateUserInfo() {
-
-
         StorageReference mStorage = FirebaseStorage.getInstance().getReference().child("users_photos");
-
         final StorageReference imageFilePath = mStorage.child(fbUser.getUid());
         imageFilePath.putFile(pickedImgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // now we can get our image url
                 imageFilePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        // uri contain user image url
                         UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
                                 .setPhotoUri(uri)
                                 .build();
@@ -247,11 +222,9 @@ public class ProfileFrag extends Fragment {
             }
         });
 
-
     }
 
     public void openNotificationDialog(String i_message) {
-
         NotificationDialog mNotificationDialog = new NotificationDialog();
         Bundle bundle = new Bundle();
         bundle.putString("message", i_message);
@@ -306,7 +279,6 @@ public class ProfileFrag extends Fragment {
         progressToSet = (int) db;
 
         tvProgress.setText(i_currentPoints + "/" + endLevel);
-
         progressBar.setProgress(progressToSet);
     }
 

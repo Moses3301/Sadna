@@ -12,7 +12,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,18 +20,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.content.Context;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.mta.sadna19.sadna.Adapter.CategoryRecyclerAdapter;
 import com.mta.sadna19.sadna.Adapter.MenuAdapter;
 import com.mta.sadna19.sadna.MenuRegisters.Option;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class HomeFrag extends Fragment {
@@ -51,7 +46,6 @@ public class HomeFrag extends Fragment {
     Map<String, ArrayList<ServiceItem>> dataMap;
     private ArrayList<String> mCategoriesList;
     private CategoryRecyclerAdapter mCategoriesAdapter;
-
     private ArrayList<SpinnerItem> categoryList;
 
     @Override
@@ -92,16 +86,9 @@ public class HomeFrag extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = view.findViewById(R.id.recyclerServices);
         dataMap = new HashMap<>();
-
-
         mAddServiceButton = view.findViewById(R.id.btnAddMenu);
-
-
-        //initAddServices();
-
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
         mServerHandler = new ServerHandler();
-
         mMenuList = new ArrayList<>();
         nMenuAdapter = new MenuAdapter(mContext, mMenuList);
         nMenuAdapter.setOnMenuClickListener(new MenuAdapter.OnMenuClickListener() {
@@ -198,7 +185,6 @@ public class HomeFrag extends Fragment {
         mServerHandler.fetchServices();
     }
 
-
     private void initList() {
 
         if (dataMap != null) {
@@ -222,7 +208,6 @@ public class HomeFrag extends Fragment {
         mCategoriesAdapter.SetOnCategoryClickedListener(new CategoryRecyclerAdapter.OnCategoryItemClickedListener() {
             @Override
             public void onCategoryClicked(String i_category) {
-
                 initData(i_category);
             }
         });
@@ -235,7 +220,6 @@ public class HomeFrag extends Fragment {
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "עריכה",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //mServerHandler.fetchMenu(i_serviceItem.getM_name());
                         openEditServiceDialog(i_serviceItem);
                         dialog.dismiss();
                     }
@@ -311,8 +295,5 @@ public class HomeFrag extends Fragment {
             Toast.makeText(getContext(), "שירות בשם זה כבר קיים", Toast.LENGTH_LONG).show();
         }
     }
-
-
-
 
 }

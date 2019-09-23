@@ -14,15 +14,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mta.sadna19.sadna.Adapter.OptionAdapter;
 import com.mta.sadna19.sadna.MenuRegisters.DataOption;
-import com.mta.sadna19.sadna.MenuRegisters.MenuFactory.Factory;
 import com.mta.sadna19.sadna.MenuRegisters.Option;
 import com.squareup.picasso.Picasso;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,25 +51,11 @@ public class OptionsListActivity extends AppCompatActivity {
         init();
     }
 
-    public Option testFactory() {
-        Factory factory = new Factory();
-        return factory.CreateOption("1800201229", "בזק")
-                .AddSubMenu(
-                        factory.CreateOption("1", "לקוח קיים").AddSubMenu(
-                                factory.CreateDataOption("אנא הזני מספר טלפון", "PHONE", "#").AddSubMenu(
-                                        factory.CreateOption("1", "שירות לקוחות"),
-                                        factory.CreateOption("2", "תמיכה טכנית")
-                                )
-                        ),
-                        factory.CreateOption("2", "לקוח חדש")).GetOption();
-    }
-
     private void init() {
 
         mServerHandler = new ServerHandler();
         disableBackButton = false;
         fbUser = FirebaseAuth.getInstance().getCurrentUser();
-
         buttonReport = findViewById(R.id.btnReportOnProblem);
         if (fbUser == null)
             buttonReport.setVisibility(View.GONE);
@@ -154,21 +137,14 @@ public class OptionsListActivity extends AppCompatActivity {
             @Override
             public void onLastOption() {
                 String allPressedKeys = m_logic.GetAllKeysString();
-                //Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + allPressedKeys));
                 m_phoneToDial = allPressedKeys;
-                //======================================================================
-
                 makeCall(allPressedKeys);
-
                 onAuthenticatedUserCalled();
                 disableBackButton = true;
-                //======================================================================
                 if (fbUser != null)
                     buttonReport.setVisibility(View.VISIBLE);
                 buttonContinueToServices.setVisibility(View.VISIBLE);
 
-                //startActivity(intent);
-                //finish();
             }
         });
         if (mServerHandler.IsUserLogedIn()) {
@@ -237,7 +213,7 @@ public class OptionsListActivity extends AppCompatActivity {
     private Map<String, ServiceItem> addServiceToFavoriteList() {
         Map<String, ServiceItem> newMapToUpdate = new HashMap<>();
         int newArrayIndex = 2;
-        int i = 1;
+        int i;
         for (i = 1; i < 6; i++) {
             if (m_userFavoritesMap.containsKey(String.valueOf(i))) {
                 if (m_userFavoritesMap.get(String.valueOf(i)).getM_name().equals(mCurrService.getM_name()))
@@ -339,8 +315,6 @@ public class OptionsListActivity extends AppCompatActivity {
         });
         dialog.show(getSupportFragmentManager(),"");
     }
-
-
 
     private void openRemoveMenuDialog(Option i_opt)
     {
